@@ -7,7 +7,7 @@ void SparseMatrix::add(int value, int xPos, int yPos){
     if(xPos<1 || yPos<1){
         std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
     }
-    //Node* nuevo = new Node(value,xPos,yPos);
+
     Node* auxX=start;
     while(auxX->right!=start and auxX->right->getX()<=xPos){
         auxX=auxX->right;
@@ -29,6 +29,29 @@ void SparseMatrix::add(int value, int xPos, int yPos){
         auxY=auxY->down;
         auxY->setDown(temp);
     } 
+    Node* cabezaX = auxX;
+    Node* cabezaY = auxY;
+    while(cabezaX->down!=auxX and cabezaX->down->getY()<yPos){ //desde la cabeza de la columna baja fila a fila
+        cabezaX=cabezaX->down;
+    }
+    if(cabezaX->down->getY()==yPos){
+        cabezaX->down->setData(value);
+        std::cout<<"Valor actualizado"<<std::endl;
+        return;
+    }
+    Node* nuevo = new Node(value,xPos,yPos);
+    Node* temp = cabezaX->down;
+    cabezaX->setDown(nuevo);
+    cabezaX=cabezaX->down;
+    cabezaX->setDown(temp);
+    
+    while(cabezaY->right!=auxY and cabezaY->right->getX()<xPos){//desde la cabeza de la fila, va a la derecha columna x columna
+        cabezaY=cabezaY->right;
+    }
+    temp = cabezaY->right;
+    cabezaY->setRight(nuevo);
+    cabezaY=cabezaY->right;
+    cabezaY->setRight(temp);
 }
 void SparseMatrix::printCabecerasX(){
     Node* aux = start;
@@ -45,6 +68,19 @@ void SparseMatrix::printCabecerasY(){
         aux=aux->down;
     }
     std::cout<<"X:"<<aux->getX()<<"Y:"<<aux->getY()<<std::endl;
+}
+void SparseMatrix::printMatrix(){
+    Node* Y = start;
+    while(Y->down!=start){
+        Y=Y->down;
+        Node* X = Y;
+        while(X->right!=Y){
+            X=X->right;
+            std::cout<<X->getData()<<" ";
+        }
+        std::cout<<std::endl;
+    }
+
 }
 int SparseMatrix::get(int xPos, int yPos){
     return 0;
