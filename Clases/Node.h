@@ -11,6 +11,7 @@ class Node{
     ~Node(){};
     int getX();
     int getY();
+    int getData();
     void setRight(Node* nodo);
     void setDown(Node* nodo);
     void setData(int data);

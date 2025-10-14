@@ -20,3 +20,6 @@ int Node::getX(){
 int Node::getY(){
     return y;
 }
+int Node::getData(){
+    return data;
+}
