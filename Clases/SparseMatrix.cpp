@@ -25,7 +25,7 @@ void SparseMatrix::add(int value, int xPos, int yPos){
     }
     if(auxY->getY()!=yPos){
         Node* temp=auxY->down;
-        auxY->setDown(new Node(0,yPos,0));
+        auxY->setDown(new Node(0,0,yPos));
         auxY=auxY->down;
         auxY->setDown(temp);
     } 
@@ -35,6 +35,14 @@ void SparseMatrix::printCabecerasX(){
     while(aux->right!=start){
         std::cout<<"X:"<<aux->getX()<<"Y:"<<aux->getY()<<std::endl;
         aux=aux->right;
+    }
+    std::cout<<"X:"<<aux->getX()<<"Y:"<<aux->getY()<<std::endl;
+}
+void SparseMatrix::printCabecerasY(){
+    Node* aux = start;
+    while(aux->down!=start){
+        std::cout<<"X:"<<aux->getX()<<"Y:"<<aux->getY()<<std::endl;
+        aux=aux->down;
     }
     std::cout<<"X:"<<aux->getX()<<"Y:"<<aux->getY()<<std::endl;
 }

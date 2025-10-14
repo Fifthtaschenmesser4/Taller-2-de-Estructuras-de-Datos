@@ -8,7 +8,8 @@ int main(){
     matriz->add(1,4,1);
     matriz->add(1,3,1);
     matriz->add(1,2,1);
-    matriz->add(1,100,1);
+    matriz->add(1,100,2);
     matriz->printCabecerasX();
+    matriz->printCabecerasY();
     return 0;
 }
