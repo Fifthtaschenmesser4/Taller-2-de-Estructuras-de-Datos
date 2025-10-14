@@ -3,6 +3,12 @@
 #include <iostream>
 
 int main(){
-
+    SparseMatrix* matriz = new SparseMatrix();
+    matriz->add(1,1,1);
+    matriz->add(1,4,1);
+    matriz->add(1,3,1);
+    matriz->add(1,2,1);
+    matriz->add(1,100,1);
+    matriz->printCabecerasX();
     return 0;
 }

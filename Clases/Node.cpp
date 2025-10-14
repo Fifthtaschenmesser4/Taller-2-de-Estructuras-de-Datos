@@ -1,11 +1,20 @@
 #include "Node.h"
-Node::Node(){
-    data = 0;
-    right = nullptr;
-    down = nullptr;
+Node::Node(int data,int x,int y){
+    this->data=data;
+    right=down=this;
+    this->x=x;
+    this->y=y;
 }
-Node::Node(int data){
-    this->data = data;
-    right = nullptr;
-    down = nullptr;
+
+void Node::setRight(Node* nodo){
+    right=nodo;
+}
+void Node::setDown(Node* nodo){
+    down=nodo;
+}
+int Node::getX(){
+    return x;
+}
+int Node::getY(){
+    return y;
 }

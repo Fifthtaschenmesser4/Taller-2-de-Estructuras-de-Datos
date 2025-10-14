@@ -5,6 +5,7 @@ private:
 Node* start; 
 public: 
 SparseMatrix(); 
+void printCabecerasX();
 void add(int value, int xPos, int yPos); 
 int get(int xPos, int yPos); 
 void remove(int xPos, int yPos); 
