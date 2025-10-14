@@ -5,7 +5,9 @@ Node::Node(int data,int x,int y){
     this->x=x;
     this->y=y;
 }
-
+void Node::setData(int data){
+    this->data=data;
+}
 void Node::setRight(Node* nodo){
     right=nodo;
 }
