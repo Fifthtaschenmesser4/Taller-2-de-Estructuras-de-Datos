@@ -181,6 +181,49 @@ int SparseMatrix::density(){
     return density;
 }
 SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
-    return nullptr;
+    //1. obtenemos orden de matriz 1
+    Node* aux1 = start;
+    while(aux1->down!=start){aux1=aux1->down;}
+    Node* aux2=aux1;
+    while(aux1->right!=aux2){aux1=aux1->right;};
+    int x1=aux1->getX();
+    int y1=aux1->getY();
+    //2. obtenemos orden de matriz 2
+    aux1=second->getStart();
+    while(aux1->down!=second->getStart()){aux1=aux1->down;}
+    aux2=aux1;
+    while(aux1->right!=aux2){aux1=aux1->right;};
+    int x2=aux1->getX();
+    int y2=aux1->getY();
+    if(x1!=y2 || y1!=x2) return nullptr;
+
+    //si se puede multiplicar:
+    SparseMatrix* nuevaMatriz = new SparseMatrix();
+    Node* cabezaFilaA=start->down; //cabecera de filas de Matriz 1
+    while(cabezaFilaA!=start){
+        Node* cabezaColumnaB=second->getStart()->right; //cabecera de columnas de matriz 1
+        while(cabezaColumnaB!=second->getStart()){
+        Node* auxFil=cabezaFilaA->right;
+        Node* auxCol=cabezaColumnaB->down;
+        int suma=0;
+        while(auxCol!=cabezaColumnaB and auxFil!=cabezaFilaA){
+            if(auxCol->getY() == auxFil->getX()){
+            suma += auxCol->getData()*auxFil->getData();
+            auxCol=auxCol->down;
+            auxFil=auxFil->right;
+            } else if (auxCol->getY() < auxFil->getX()){
+                auxCol=auxCol->down;
+            } else if (auxCol->getY() > auxFil->getX()){
+                auxFil=auxFil->right;
+            }
+        }
+        if(suma!=0){
+            nuevaMatriz->add(suma,cabezaColumnaB->getX(),cabezaFilaA->getY());
+        }
+        cabezaColumnaB=cabezaColumnaB->right;
+    }
+    cabezaFilaA=cabezaFilaA->down;
+    }
+    return nuevaMatriz;
 }
 SparseMatrix::~SparseMatrix(){}
