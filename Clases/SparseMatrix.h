@@ -12,7 +12,6 @@ int get(int xPos, int yPos);
 void remove(int xPos, int yPos); 
 void printStoredValues(); 
 int density(); 
-void printMatrix();
 SparseMatrix* multiply(SparseMatrix* second); 
 ~SparseMatrix(); 
 };

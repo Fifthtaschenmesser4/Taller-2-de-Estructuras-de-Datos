@@ -71,19 +71,7 @@ void SparseMatrix::printCabecerasY(){
     }
     std::cout<<aux->getY()<<std::endl;
 }
-void SparseMatrix::printMatrix(){
-    Node* Y = start;
-    while(Y->down!=start){
-        Y=Y->down;
-        Node* X = Y;
-        while(X->right!=Y){
-            X=X->right;
-            std::cout<<X->getData()<<" ";
-        }
-        std::cout<<std::endl;
-    }
 
-}
 int SparseMatrix::get(int xPos, int yPos){
     if(xPos<1 || yPos<1){
         std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
@@ -173,7 +161,21 @@ void SparseMatrix::printStoredValues(){
     return;
 }
 int SparseMatrix::density(){
-    return 0;
+    int cont=0;
+    Node* Y = start;
+    Node* X;
+    while(Y->down!=start){
+        Y=Y->down;
+        X = Y;
+        while(X->right!=Y){
+            X=X->right;
+            cont++;
+        }
+    }
+    int x=X->getX();
+    int y=X->getY();
+    int density = cont/(x*y);
+    return density;
 }
 SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
     return nullptr;
