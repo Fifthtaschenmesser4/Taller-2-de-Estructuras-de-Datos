@@ -3,6 +3,9 @@
 SparseMatrix::SparseMatrix(){
     start = new Node(0,0,0);
 }
+Node* SparseMatrix::getStart(){
+    return start;
+}
 void SparseMatrix::add(int value, int xPos, int yPos){
     if(xPos<1 || yPos<1){
         std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
