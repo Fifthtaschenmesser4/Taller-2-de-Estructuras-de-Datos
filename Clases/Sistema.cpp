@@ -1,0 +1,55 @@
+#include "Sistema.h"
+#include "MatrixList.h"
+#include <iostream>
+Sistema::Sistema() : listaMatrices(){idGlobal=0;}
+SparseMatrix* Sistema::buscarMatriz(int id){
+    SparseMatrix* mt = listaMatrices.getMatrix(id);
+    return mt;
+}
+void Sistema::crearMatriz(){
+    listaMatrices.addMatrix(idGlobal);
+    std::cout<<"Nueva matriz vacía creada!: ID:"<<idGlobal<<std::endl;
+    idGlobal++;
+}
+void Sistema::eliminarMatriz(int id){
+    listaMatrices.deleteMatrix(id);
+}
+void Sistema::insertarValor(int id, int valor, int x, int y){
+    SparseMatrix* mt = buscarMatriz(id);
+    if(mt!=nullptr){
+        mt->add(valor,x,y);
+    }
+}
+void Sistema::buscarValor(int id, int x, int y){
+    SparseMatrix* mt = buscarMatriz(id);
+    if(mt!=nullptr){
+        int v=mt->get(x,y);
+        return;
+    }
+}
+void Sistema::eliminarValor(int id, int x, int y){
+    SparseMatrix* mt = buscarMatriz(id);
+    if(mt!=nullptr){
+        mt->remove(x,y);
+    }
+}
+void Sistema::multiplicarMatrices(int id1, int id2){
+    SparseMatrix* mt1 = buscarMatriz(id1);
+    SparseMatrix* mt2 = buscarMatriz(id2);
+    if(mt1==nullptr||mt2==nullptr) return;
+    SparseMatrix* mt3 = mt1->multiply(mt2);
+    if(mt3!=nullptr){
+        std::cout<<"MATRIZ MULTIPLICADA:"<<std::endl;
+        mt3->printStoredValues();
+        delete mt3;
+    }
+}
+void Sistema::mostrarMatriz(int id){
+    SparseMatrix* mt = buscarMatriz(id);
+    if(mt!=nullptr){
+        mt->printStoredValues();
+    }
+}
+void Sistema::mostrarLista(){
+    listaMatrices.showList();
+}
