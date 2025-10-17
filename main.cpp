@@ -89,17 +89,18 @@ int main(){
     matriz->printStoredValues();
 
     SparseMatrix* m2 = new SparseMatrix();
-    m2->add(5,1,1);
-    m2->add(-1,2,1);
-    m2->add(1,1,2);
-    m2->add(-2,1,3);
-    m2->add(3,2,3);
+    m2->add(1,1,1);
+    m2->add(2,1,2);
+    m2->add(3,1,3);
+    m2->add(4,2,1);
+    m2->add(5,2,2);
+    m2->add(6,2,3);
     std::cout<<"matriz 2:"<<std::endl;
     m2->printCabecerasX();
     m2->printCabecerasY();
     m2->printStoredValues();
 
-    SparseMatrix* m3 = matriz->multiply(m2);
+    SparseMatrix* m3 = matriz->multiply2(m2);
     if(m3!=nullptr){
         std::cout<<"matriz MULTIPLICADA:"<<std::endl;
         m3->printCabecerasX();

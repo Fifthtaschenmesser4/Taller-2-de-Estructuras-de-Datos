@@ -15,19 +15,32 @@ void Sistema::eliminarMatriz(int id){
     listaMatrices.deleteMatrix(id);
 }
 void Sistema::insertarValor(int id, int valor, int x, int y){
+    if(x<1 || y<1){
+       std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
+       return;
+    }
     SparseMatrix* mt = buscarMatriz(id);
     if(mt!=nullptr){
         mt->add(valor,x,y);
     }
 }
 void Sistema::buscarValor(int id, int x, int y){
+    if(x<1 || y<1){
+       std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
+       return;
+    }
     SparseMatrix* mt = buscarMatriz(id);
     if(mt!=nullptr){
         int v=mt->get(x,y);
+        std::cout<<"Encontrado! -> "<<v<<std::endl;
         return;
     }
 }
 void Sistema::eliminarValor(int id, int x, int y){
+    if(x<1 || y<1){
+        std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
+        return;
+    }
     SparseMatrix* mt = buscarMatriz(id);
     if(mt!=nullptr){
         mt->remove(x,y);
@@ -36,8 +49,11 @@ void Sistema::eliminarValor(int id, int x, int y){
 void Sistema::multiplicarMatrices(int id1, int id2){
     SparseMatrix* mt1 = buscarMatriz(id1);
     SparseMatrix* mt2 = buscarMatriz(id2);
-    if(mt1==nullptr||mt2==nullptr) return;
-    SparseMatrix* mt3 = mt1->multiply(mt2);
+    if(mt1==nullptr||mt2==nullptr) {
+    std::cout<<"Las matrices no son compatibles"<<std::endl;    
+    return;
+    }
+    SparseMatrix* mt3 = mt1->multiply2(mt2);
     if(mt3!=nullptr){
         std::cout<<"MATRIZ MULTIPLICADA:"<<std::endl;
         mt3->printStoredValues();

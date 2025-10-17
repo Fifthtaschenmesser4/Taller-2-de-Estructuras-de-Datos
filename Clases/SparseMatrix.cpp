@@ -8,7 +8,7 @@ Node* SparseMatrix::getStart(){
 }
 void SparseMatrix::add(int value, int xPos, int yPos){
     if(xPos<1 || yPos<1){
-        std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
+        return;
     }
 
     Node* auxX=start;
@@ -17,7 +17,7 @@ void SparseMatrix::add(int value, int xPos, int yPos){
     }
     if(auxX->getX()!=xPos){
         Node* temp=auxX->right;
-        auxX->setRight(new Node(0,xPos,0));
+        auxX->setRight(new Node(-1,xPos,0));
         auxX=auxX->right;
         auxX->setRight(temp);
     }
@@ -28,7 +28,7 @@ void SparseMatrix::add(int value, int xPos, int yPos){
     }
     if(auxY->getY()!=yPos){
         Node* temp=auxY->down;
-        auxY->setDown(new Node(0,0,yPos));
+        auxY->setDown(new Node(-1,0,yPos));
         auxY=auxY->down;
         auxY->setDown(temp);
     } 
@@ -76,19 +76,21 @@ void SparseMatrix::printCabecerasY(){
 }
 
 int SparseMatrix::get(int xPos, int yPos){
-    if(xPos<1 || yPos<1){
-        std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
-    }
+    //if(xPos<1 || yPos<1){
+      //  std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
+    //}
 
     Node* auxX=start;
     while(auxX->right!=start and auxX->right->getX()<=xPos){
         auxX=auxX->right;
     }
     if(auxX->getX()!=xPos){
-        Node* temp=auxX->right;
-        auxX->setRight(new Node(0,xPos,0));
-        auxX=auxX->right;
-        auxX->setRight(temp);
+        //Node* temp=auxX->right;
+        //auxX->setRight(new Node(0,xPos,0));
+        //auxX=auxX->right;
+        //auxX->setRight(temp);
+        //std::cout<<"¡No encontrado!"<<std::endl;
+        return 0;
     }
 
     Node* cabezaX = auxX;
@@ -96,7 +98,7 @@ int SparseMatrix::get(int xPos, int yPos){
         cabezaX=cabezaX->down;
     }
     if(cabezaX->down->getY()==yPos){
-        std::cout<<"¡Encontrado!"<<std::endl;
+        //std::cout<<"¡Encontrado!"<<std::endl;
         return cabezaX->down->getData();
     }
     return 0;
@@ -226,4 +228,48 @@ SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
     }
     return nuevaMatriz;
 }
+SparseMatrix* SparseMatrix::multiply2(SparseMatrix* second){
+    //1. revisar si ambas matrices son compatibles
+    Node* cabezaX=start;
+    Node* cabezaY=start;
+    while(cabezaX->right!=start){
+        cabezaX=cabezaX->right;
+    }
+    while (cabezaY->down!=start){
+        cabezaY=cabezaY->down;
+    }
+    //MxN * NxM
+    int filas=cabezaX->getX();
+    int columnas=cabezaY->getY();
+    
+    if(second->get(0,filas+1)==-1 || second->get(columnas+1,0)==-1) return nullptr;
+    //ambas son compatibles
+
+    SparseMatrix* nueva=new SparseMatrix() ;
+    Node* cabezaFila=start->down; //por cada fila 
+    Node* indiceCOL=start->down;
+
+    while(cabezaFila!=start){
+      int fil=cabezaFila->getY();
+      for(int i = 0;i<=columnas;i++){ //por cada columna de la segunda matriz (hay )
+        Node* auxX=cabezaFila->right;
+        int suma=0;
+        while (auxX!=cabezaFila){
+            std::cout<<"OP: en ("<<auxX->getX()<<","<<auxX->getY()<<") x "<<"Second ("<<indiceCOL->getY()<<","<<auxX->getX()<<")"<<std::endl;
+            suma+=auxX->getData()*second->get(indiceCOL->getY(),auxX->getX());
+            auxX=auxX->right;
+        }
+        if(suma!=0){
+            std::cout<<"SUMA="<<suma<<std::endl;
+            nueva->add(suma,indiceCOL->getY(),fil);
+        }
+        indiceCOL=indiceCOL->down;
+        }
+    cabezaFila=cabezaFila->down;
+    indiceCOL=start->down;
+    }
+    return nueva;
+}
+    
+
 SparseMatrix::~SparseMatrix(){}

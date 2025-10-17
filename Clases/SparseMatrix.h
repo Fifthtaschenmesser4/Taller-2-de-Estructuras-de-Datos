@@ -14,5 +14,6 @@ void printStoredValues();
 int density(); 
 Node* getStart();
 SparseMatrix* multiply(SparseMatrix* second); 
+SparseMatrix* multiply2(SparseMatrix* second); 
 ~SparseMatrix(); 
 };
