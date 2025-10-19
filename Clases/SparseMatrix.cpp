@@ -87,10 +87,10 @@ int SparseMatrix::get(int xPos, int yPos){
         cabezaX=cabezaX->down;
     }
     if(cabezaX->down->getY()==yPos){
-        //std::cout<<"¡Encontrado!"<<std::endl;
         return cabezaX->down->getData();
     }
     return 0;
+
 }
 void SparseMatrix::remove(int xPos, int yPos){
     if(xPos<1 || yPos<1){
@@ -168,9 +168,8 @@ int SparseMatrix::density(){
     }
     int x=X->getX();
     int y=X->getY();
-    if(x*y==0) return -1; //matriz vacia
-    int density = cont/(x*y);
-    return density*100;
+    int density = (cont/(x*y))*100;
+    return density;
 }
 SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
     //1. obtenemos orden de matriz 1
