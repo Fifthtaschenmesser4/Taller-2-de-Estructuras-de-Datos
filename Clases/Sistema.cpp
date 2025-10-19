@@ -49,10 +49,8 @@ void Sistema::eliminarValor(int id, int x, int y){
 void Sistema::multiplicarMatrices(int id1, int id2){
     SparseMatrix* mt1 = buscarMatriz(id1);
     SparseMatrix* mt2 = buscarMatriz(id2);
-    if(mt1==nullptr||mt2==nullptr) {
-    std::cout<<"Las matrices no son compatibles"<<std::endl;    
-    return;
-    }
+    if(mt1==nullptr||mt2==nullptr) return;
+    
     SparseMatrix* mt3 = mt1->multiply2(mt2);
     if(mt3!=nullptr){
         std::cout<<"MATRIZ MULTIPLICADA:"<<std::endl;
