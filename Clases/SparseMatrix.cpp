@@ -76,20 +76,12 @@ void SparseMatrix::printCabecerasY(){
 }
 
 int SparseMatrix::get(int xPos, int yPos){
-    //if(xPos<1 || yPos<1){
-      //  std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
-    //}
 
     Node* auxX=start;
     while(auxX->right!=start and auxX->right->getX()<=xPos){
         auxX=auxX->right;
     }
     if(auxX->getX()!=xPos){
-        //Node* temp=auxX->right;
-        //auxX->setRight(new Node(0,xPos,0));
-        //auxX=auxX->right;
-        //auxX->setRight(temp);
-        //std::cout<<"¡No encontrado!"<<std::endl;
         return 0;
     }
 
@@ -98,10 +90,10 @@ int SparseMatrix::get(int xPos, int yPos){
         cabezaX=cabezaX->down;
     }
     if(cabezaX->down->getY()==yPos){
-        //std::cout<<"¡Encontrado!"<<std::endl;
         return cabezaX->down->getData();
     }
     return 0;
+
 }
 void SparseMatrix::remove(int xPos, int yPos){
     if(xPos<1 || yPos<1){
@@ -179,7 +171,7 @@ int SparseMatrix::density(){
     }
     int x=X->getX();
     int y=X->getY();
-    int density = cont/(x*y);
+    int density = (cont/(x*y))*100;
     return density;
 }
 SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
