@@ -4,7 +4,7 @@
 #include "Clases/Sistema.h"
 #include <iostream>
 void printMenu(){
-    std::cout<<"----- Menú de matrices-----"<<std::endl;
+    std::cout<<"----- Menu de matrices-----"<<std::endl;
     std::cout<<"1. Crear matriz"<<std::endl;
     std::cout<<"2. Eliminar matriz"<<std::endl;
     std::cout<<"3. Insertar valor en matriz"<<std::endl;
@@ -12,7 +12,8 @@ void printMenu(){
     std::cout<<"5. Eliminar valor en matriz"<<std::endl;
     std::cout<<"6. Multiplicar matrices"<<std::endl;
     std::cout<<"7. Mostrar matriz"<<std::endl;
-    std::cout<<"8. Salir"<<std::endl;
+    std::cout<<"8. Calcular densidad"<<std::endl;
+    std::cout<<"9. Salir"<<std::endl;
     std::cout<<"Ingrese numero>> ";
 }
 
@@ -65,11 +66,15 @@ void iniciarMenu(Sistema &systema){
             std::cin>>id;
             systema.mostrarMatriz(id);
         } else if (opcion==8){
+            std::cout<<"Ingrese ID de matriz>>";
+            std::cin>>id;
+            systema.calcularDensidad(id);
+        } else if(opcion==9){
             std::cout<<"Saliendo...";
         } else {
             std::cout<<"Ingrese una opción válida."<<std::endl;
         }
-    }while(opcion != 8);
+    }while(opcion != 9);
 }
 
 int main(){

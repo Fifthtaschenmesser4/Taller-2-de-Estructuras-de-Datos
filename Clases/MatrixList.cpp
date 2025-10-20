@@ -26,7 +26,7 @@ void MatrixList::deleteMatrix(int id){
     if(curr->getID()==id){
         head=nullptr;
         delete curr;
-        std::cout<<"Eliminado con éxito"<<std::endl;
+        std::cout<<"Matriz eliminada con exito"<<std::endl;
         return;
     }
     prev=curr;
@@ -35,7 +35,7 @@ void MatrixList::deleteMatrix(int id){
         if(curr->getID()==id){
             prev->setRight(curr->getRight());
             delete curr;
-            std::cout<<"Eliminado con éxito"<<std::endl;
+            std::cout<<"Matriz eliminada con exito"<<std::endl;
             return;
         }
         prev=curr;
@@ -55,7 +55,7 @@ SparseMatrix* MatrixList::getMatrix(int id){
         }
         aux=aux->getRight();
     }
-    std::cout<<"No se encontró esa matriz"<<std::endl;
+    std::cout<<"No se ha encontrado esa matriz esa matriz"<<std::endl;
     return nullptr;
 }
 void MatrixList::showList(){

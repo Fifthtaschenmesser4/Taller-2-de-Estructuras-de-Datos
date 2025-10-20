@@ -168,8 +168,9 @@ int SparseMatrix::density(){
     }
     int x=X->getX();
     int y=X->getY();
-    int density = (cont/(x*y))*100;
-    return density;
+    std::cout<<"CONT:"<<cont<<"  x="<<x<<"  y="<<y<<std::endl;
+    float density = (float(cont)/(x*y))*100;
+    return (int)density;
 }
 SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
     //1. obtenemos orden de matriz 1
@@ -272,8 +273,27 @@ SparseMatrix* SparseMatrix::multiply2(SparseMatrix* second){
     }
     return nueva;
 }
-    
 
-SparseMatrix::~SparseMatrix(){
-    
+SparseMatrix::~SparseMatrix() {
+    if(start==nullptr) return;
+    Node* auxFila = start->down;
+    while(auxFila!=start){
+        Node* auxCol=auxFila->right;
+        while(auxCol!=auxFila){
+            Node* deleteNode=auxCol;
+            auxCol=auxCol->right;
+            delete deleteNode;
+        }
+        Node* deleteNode=auxFila;
+        auxFila=auxFila->down;
+        delete deleteNode;
+    }
+    //tras eliminar los valores de la matriz y el eje Y
+    auxFila=start->right;
+    while(auxFila!=start){
+        Node* deleteNode = auxFila;
+        auxFila=auxFila->right;
+        delete deleteNode;
+    }
+    delete start;
 }

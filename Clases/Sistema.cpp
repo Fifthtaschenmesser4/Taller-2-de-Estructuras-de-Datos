@@ -8,7 +8,7 @@ SparseMatrix* Sistema::buscarMatriz(int id){
 }
 void Sistema::crearMatriz(){
     listaMatrices.addMatrix(idGlobal);
-    std::cout<<"Nueva matriz vacía creada!: ID:"<<idGlobal<<std::endl;
+    std::cout<<"Nueva matriz vacia creada!: ID:"<<idGlobal<<std::endl;
     idGlobal++;
 }
 void Sistema::eliminarMatriz(int id){
@@ -16,7 +16,7 @@ void Sistema::eliminarMatriz(int id){
 }
 void Sistema::insertarValor(int id, int valor, int x, int y){
     if(x<1 || y<1){
-       std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
+       std::cout<<"Ingrese coordenadas validas (desde el 1)"<<std::endl;
        return;
     }
     SparseMatrix* mt = buscarMatriz(id);
@@ -26,7 +26,7 @@ void Sistema::insertarValor(int id, int valor, int x, int y){
 }
 void Sistema::buscarValor(int id, int x, int y){
     if(x<1 || y<1){
-       std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
+       std::cout<<"Ingrese coordenadas validas (desde el 1)"<<std::endl;
        return;
     }
     SparseMatrix* mt = buscarMatriz(id);
@@ -38,7 +38,7 @@ void Sistema::buscarValor(int id, int x, int y){
 }
 void Sistema::eliminarValor(int id, int x, int y){
     if(x<1 || y<1){
-        std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
+        std::cout<<"Ingrese coordenadas validas (desde el 1)"<<std::endl;
         return;
     }
     SparseMatrix* mt = buscarMatriz(id);
@@ -63,6 +63,14 @@ void Sistema::mostrarMatriz(int id){
     if(mt!=nullptr){
         mt->printStoredValues();
     }
+}
+void Sistema::calcularDensidad(int id){
+    SparseMatrix* mt = buscarMatriz(id);
+    if(mt!=nullptr){
+        std::cout<<"La densidad de la matriz es: "<<mt->density()<<std::endl;
+        return;
+    }
+    std::cout<<"La matriz no existe!"<<std::endl;
 }
 void Sistema::mostrarLista(){
     listaMatrices.showList();

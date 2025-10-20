@@ -14,5 +14,6 @@ class Sistema{
     void eliminarValor(int id, int x, int y);
     void multiplicarMatrices(int id1, int id2);
     void mostrarMatriz(int id);
+    void calcularDensidad(int id);
     void mostrarLista();
 };
