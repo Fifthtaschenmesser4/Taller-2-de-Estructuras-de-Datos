@@ -6,11 +6,11 @@ SparseMatrix::SparseMatrix(){
 Node* SparseMatrix::getStart(){
     return start;
 }
+
 void SparseMatrix::add(int value, int xPos, int yPos){
     if(xPos<1 || yPos<1){
         return;
     }
-
     Node* auxX=start;
     while(auxX->right!=start and auxX->right->getX()<=xPos){
         auxX=auxX->right;
@@ -93,10 +93,6 @@ int SparseMatrix::get(int xPos, int yPos){
 
 }
 void SparseMatrix::remove(int xPos, int yPos){
-    if(xPos<1 || yPos<1){
-        std::cout<<"Ingrese coordenadas válidas (desde el 1)"<<std::endl;
-    }
-
     Node* auxX=start; //busca cabecera X
     Node* prevX;
     while(auxX->right!=start and auxX->right->getX()<=xPos){
@@ -110,7 +106,7 @@ void SparseMatrix::remove(int xPos, int yPos){
         auxY=auxY->down;
     }
     if(auxX->getX()!=xPos || auxY->getY()!=yPos){ //si alguna de estas no existen, return.
-        std::cout<<"No existe tal elemento 1"<<std::endl;
+        std::cout<<"No existe ese elemento!"<<std::endl;
         return;
     }
 
@@ -148,7 +144,6 @@ void SparseMatrix::printStoredValues(){
         Node* X = Y;
         while(X->right!=Y){
             X=X->right;
-            //(7, 8) --> 90 
             std::cout<<"("<<X->getX()<<", "<<X->getY()<<") --> "<<X->getData()<<std::endl;
         }
     }
@@ -168,28 +163,14 @@ int SparseMatrix::density(){
     }
     int x=X->getX();
     int y=X->getY();
-    std::cout<<"CONT:"<<cont<<"  x="<<x<<"  y="<<y<<std::endl;
     float density = (float(cont)/(x*y))*100;
     return (int)density;
 }
 SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
-    //1. obtenemos orden de matriz 1
-    Node* aux1 = start;
-    while(aux1->down!=start){aux1=aux1->down;}
-    Node* aux2=aux1;
-    while(aux1->right!=aux2){aux1=aux1->right;};
-    int x1=aux1->getX();
-    int y1=aux1->getY();
-    //2. obtenemos orden de matriz 2
-    aux1=second->getStart();
-    while(aux1->down!=second->getStart()){aux1=aux1->down;}
-    aux2=aux1;
-    while(aux1->right!=aux2){aux1=aux1->right;};
-    int x2=aux1->getX();
-    int y2=aux1->getY();
-    if(x1!=y2 || y1!=x2) return nullptr;
+    if(start->right==start and second->start->right==start) return this; 
+    if(start->right==start) return this;
+    if(second->start->right==start) return second; 
 
-    //si se puede multiplicar:
     SparseMatrix* nuevaMatriz = new SparseMatrix();
     Node* cabezaFilaA=start->down; //cabecera de filas de Matriz 1
     while(cabezaFilaA!=start){
@@ -218,64 +199,13 @@ SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
     }
     return nuevaMatriz;
 }
-SparseMatrix* SparseMatrix::multiply2(SparseMatrix* second){
-    if(second==nullptr) return nullptr;
-    //si la matriz1 no tiene ningún nodo(vacia) o matriz2 no tiene ningun nodo(vacia)
-    if(start->right==start || second->density()==-1) {
-        std::cout<<"Una o ambas matrices son vacías!"<<std::endl;    
-        return nullptr;
-    } 
 
-    //1. revisar si ambas matrices son compatibles
-    Node* cabezaX=start;
-    Node* cabezaY=start;
-    while(cabezaX->right!=start){
-        cabezaX=cabezaX->right;
-    }
-    while (cabezaY->down!=start){
-        cabezaY=cabezaY->down;
-    }
-    //MxN * NxM
-    int filas=cabezaX->getX();
-    int columnas=cabezaY->getY();
-    std::cout<<"FIL:"<<filas<<" , COL:"<<columnas<<std::endl;
-    std::cout<<second->get(0,filas)<<" (-1)  y  "<<second->get(0,filas+1)<<" (0)"<<std::endl;
-    std::cout<<second->get(columnas,0)<<" (-1) y  "<<second->get(columnas+1,0)<<" (0)"<<std::endl;
 
-    if(second->get(0,filas)==-1 and second->get(0,filas+1)==0 and second->get(columnas,0)==-1 
-    and second->get(columnas+1,0)==0) //NO SE PUEDE HACER MULTIPLICACIÓN CON GET()
-    {
-        std::cout<<"Las matrices SÍ SON son compatibles!"<<std::endl;    
-        return nullptr;
-    }
 
-    //ambas son compatibles
-    SparseMatrix* nueva=new SparseMatrix() ;
-    Node* cabezaFila=start->down; //por cada fila 
-    Node* indiceCOL=start->down;
 
-    while(cabezaFila!=start){
-      int fil=cabezaFila->getY();
-      for(int i = 0;i<=columnas;i++){ //por cada columna de la segunda matriz
-        Node* auxX=cabezaFila->right;
-        int suma=0;
-        while (auxX!=cabezaFila){
-            suma+=auxX->getData()*second->get(indiceCOL->getY(),auxX->getX());
-            auxX=auxX->right;
-        }
-        if(suma!=0){
-            nueva->add(suma,indiceCOL->getY(),fil);
-        }
-        indiceCOL=indiceCOL->down;
-        }
-    cabezaFila=cabezaFila->down;
-    indiceCOL=start->down;
-    }
-    return nueva;
-}
 
 SparseMatrix::~SparseMatrix() {
-    if(start==nullptr) return;
+if(start==nullptr) return;
     Node* auxFila = start->down;
     while(auxFila!=start){
         Node* auxCol=auxFila->right;
@@ -296,4 +226,5 @@ SparseMatrix::~SparseMatrix() {
         delete deleteNode;
     }
     delete start;
+
 }

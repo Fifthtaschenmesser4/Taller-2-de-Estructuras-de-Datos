@@ -51,9 +51,9 @@ void Sistema::multiplicarMatrices(int id1, int id2){
     SparseMatrix* mt2 = buscarMatriz(id2);
     if(mt1==nullptr||mt2==nullptr) return;
     
-    SparseMatrix* mt3 = mt1->multiply2(mt2);
+    SparseMatrix* mt3 = mt1->multiply(mt2);
     if(mt3!=nullptr){
-        std::cout<<"MATRIZ MULTIPLICADA:"<<std::endl;
+        std::cout<<"Matriz multiplicada:"<<std::endl;
         mt3->printStoredValues();
         delete mt3;
     }
