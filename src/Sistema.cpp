@@ -1,5 +1,5 @@
-#include "Sistema.h"
-#include "MatrixList.h"
+#include "../include/Sistema.h"
+#include "../include/MatrixList.h"
 #include <iostream>
 #include <vector>
 #include <tuple>

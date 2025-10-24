@@ -1,7 +1,7 @@
-#include "Clases/Node.h"
-#include "Clases/SparseMatrix.h"
-#include "Clases/MatrixList.h"
-#include "Clases/Sistema.h"
+#include "../include/Node.h"
+#include "../include/SparseMatrix.h"
+#include "../include/MatrixList.h"
+#include "../include/Sistema.h"
 #include <iostream>
 
 void printMenu(){

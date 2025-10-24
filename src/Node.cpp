@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "../include/Node.h"
 Node::Node(int data,int x,int y){
     this->data=data;
     right=down=this;

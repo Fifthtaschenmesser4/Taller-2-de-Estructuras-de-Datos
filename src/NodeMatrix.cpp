@@ -1,4 +1,4 @@
-#include "NodeMatrix.h"
+#include "../include/NodeMatrix.h"
 #include <iostream>
 NodeMatrix::NodeMatrix(int id,SparseMatrix* mt){
     this->id=id;

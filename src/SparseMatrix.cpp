@@ -1,4 +1,4 @@
-#include "SparseMatrix.h"
+#include "../include/SparseMatrix.h"
 #include <iostream>
 SparseMatrix::SparseMatrix(){
     start = new Node(0,0,0);

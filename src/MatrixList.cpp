@@ -1,4 +1,4 @@
-#include "MatrixList.h"
+#include "../include/MatrixList.h"
 #include <iostream>
 MatrixList::MatrixList(){
     head=nullptr;
