@@ -5,6 +5,9 @@ class Sistema{
     int idGlobal;
     MatrixList listaMatrices;
     SparseMatrix* buscarMatriz(int id);
+    void testADD(int elements,int rows,int cols);
+    void testMULTIPLY(int elements,int rows,int cols);
+    void testGET(int elements,int rows,int cols);
     public:
     Sistema();
     void crearMatriz();
@@ -15,5 +18,5 @@ class Sistema{
     void multiplicarMatrices(int id1, int id2);
     void mostrarMatriz(int id);
     void calcularDensidad(int id);
-    void mostrarLista();
+    void allTest();
 };

@@ -3,9 +3,6 @@
 SparseMatrix::SparseMatrix(){
     start = new Node(0,0,0);
 }
-Node* SparseMatrix::getStart(){
-    return start;
-}
 
 void SparseMatrix::add(int value, int xPos, int yPos){
     if(xPos<1 || yPos<1){
@@ -55,24 +52,6 @@ void SparseMatrix::add(int value, int xPos, int yPos){
     cabezaY->setRight(nuevo);
     cabezaY=cabezaY->right;
     cabezaY->setRight(temp);
-}
-void SparseMatrix::printCabecerasX(){
-    Node* aux = start;
-    std::cout<<"X: ";
-    while(aux->right!=start){
-        std::cout<<aux->getX()<<", ";
-        aux=aux->right;
-    }
-    std::cout<<aux->getX()<<std::endl;
-}
-void SparseMatrix::printCabecerasY(){
-    Node* aux = start;
-    std::cout<<"Y: ";
-    while(aux->down!=start){
-        std::cout<<aux->getY()<<", ";
-        aux=aux->down;
-    }
-    std::cout<<aux->getY()<<std::endl;
 }
 
 int SparseMatrix::get(int xPos, int yPos){
@@ -174,8 +153,8 @@ SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
     SparseMatrix* nuevaMatriz = new SparseMatrix();
     Node* cabezaFilaA=start->down; //cabecera de filas de Matriz 1
     while(cabezaFilaA!=start){
-        Node* cabezaColumnaB=second->getStart()->right; //cabecera de columnas de matriz 1
-        while(cabezaColumnaB!=second->getStart()){
+        Node* cabezaColumnaB=second->start->right; //cabecera de columnas de matriz 1
+        while(cabezaColumnaB!=second->start){
         Node* auxFil=cabezaFilaA->right;
         Node* auxCol=cabezaColumnaB->down;
         int suma=0;
@@ -199,11 +178,6 @@ SparseMatrix* SparseMatrix::multiply(SparseMatrix* second){
     }
     return nuevaMatriz;
 }
-
-
-
-
-
 SparseMatrix::~SparseMatrix() {
 if(start==nullptr) return;
     Node* auxFila = start->down;
