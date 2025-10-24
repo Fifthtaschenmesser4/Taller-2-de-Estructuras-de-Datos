@@ -197,7 +197,7 @@ void Sistema::allTest(){
 
     std::vector<std::tuple<int,int,int>> values;
     values = {{50,12,12},{50,9,9},{100,16,16},{100,12,12},{250,25,25},{250,19,19},{500,36,36},{500,27,27}
-,{1000,50,50},{1000,38,38}};
+,{1000,50,50},{1000,38,38},{5000,84,84},{5000,111,113}};
     for(auto [elements, rows, cols] : values){
         std::cout<<"Elements:"<<elements<<" rows:"<<rows<<" cols:"<<cols<<std::endl;
         testADD(elements,rows,cols);
